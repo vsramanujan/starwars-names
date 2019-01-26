@@ -80,3 +80,24 @@ Releasing a new version to NPM
     First - major version - when you have a major release - a breaking change
     Second - minor release - new features - no breaking change
     Third - patch release - a bug fix 
+3. 1) Add changes to stage
+   2) Commit 
+   3) Give it a tag using git tag <tag_id>
+   4) git push
+   5) git push --tags
+   6) npm publish
+   7) npm info <package_name> to verify
+
+   Publishing a beta version
+   =========================
+
+   When you want to publish a version that you want people to test out but not want it to be the default version that people download.
+
+   1. Make changes
+   2. Go to package.json - if 1.1.0, change it to 1.2.0-beta.0 (you could change the final .0 to .1 .2 etc)
+   3. Add changes
+   4. Commit 
+   5. Git tag 1.2.0-beta.0
+   6. Push to Github
+   7. Push tags to Github
+   8. Do an - npm publish --tag beta
