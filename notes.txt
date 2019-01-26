@@ -169,3 +169,14 @@ Steps:
     "ghooks": {
       "pre-commit": "npm run test"
     }
+
+
+CODE COVERAGE USING ISTANBUL
+===========================
+
+npm test: "istanbul cover -x *.test.js _mocha -- -R spec src/index.test.js"
+
+The -- makes whatever that comes after it as an argument for the _mocha binary
+The _mocha is in the bin folder inside node_modules and this is what istanbul needs us to run for mocha
+
+There will also be a coverage file and we would not want to push this. So, add to .gitignore
