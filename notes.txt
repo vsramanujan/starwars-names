@@ -148,3 +148,24 @@ If you don't have any CI set up semantic release will actually set it up for us.
 We choose TravisCI
 
 --------------------------- End here since course is outdated -----------------------------------
+
+GITHOOKS 
+========
+
+You have different places where you can hook into git and execute some script before or after a certain action
+
+So, here we would like to run our tests before we commit any code.
+We are going to do this by using something called ghooks
+
+Imp note: 
+        Githooks are not committed to source, that is: If someone clones our repo, they will not have the hooks that we have
+
+Ghooks actually makes it so when you npm install it will install the githooks and you can define the githooks in the package.json
+
+Steps: 
+1. Install ghooks
+2.  Add this to package.json
+"config": {
+    "ghooks": {
+      "pre-commit": "npm run test"
+    }
