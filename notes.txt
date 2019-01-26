@@ -100,4 +100,51 @@ Releasing a new version to NPM
    5. Git tag 1.2.0-beta.0
    6. Push to Github
    7. Push tags to Github
-   8. Do an - npm publish --tag beta
+   8. npm publish --tag beta
+
+   If you do an npm info now, you will see that the latest version is still 1.1.0 but the beta version is 1.2.0-beta.0
+   
+   So, if some just does an npm install this package, they'll get 1.1.0 only.
+   But if they do an npm install package@beta, they'll get 1.2.0-beta.0
+
+   Whenever the beta version has been tested, you just remove beta from package.json and publish that to npm without the tag
+
+
+Setting up Unit Testing using mocha and chai
+=============================================
+
+1. npm i -D mocha chai ( it is the same as npm i --save-dev mocha chai)
+2. Create index.test.js in src
+3. Write the test: 
+ Eg:    describe('starwars-names', () => {
+                it('should work', () => {
+                    expect(true).to.be.true;
+                })
+            })
+4. Go to package.json and update test to "mocha src/index.test.js -w" (-w so that it watches the file system for changes)
+
+
+Automating release with semantic-release
+=======================================
+
+There are some recurring steps when you want to release a new version: 
+1. Make the change
+2. Commit
+3. Tag that commit 
+4. Push it to git
+5. Publish
+
+To automate this, a tool called semantic-release was created!
+
+> npm i -g semantic-release-cli
+
+Then,
+> semantic-release-cli setup
+This will take us through a process
+
+The way it works is that it will actually release the software during CI.
+If you don't have any CI set up semantic release will actually set it up for us.
+
+We choose TravisCI
+
+--------------------------- End here since course is outdated -----------------------------------
