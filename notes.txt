@@ -180,3 +180,13 @@ The -- makes whatever that comes after it as an argument for the _mocha binary
 The _mocha is in the bin folder inside node_modules and this is what istanbul needs us to run for mocha
 
 There will also be a coverage file and we would not want to push this. So, add to .gitignore
+
+ADDING CODE COVERAGE CHECKING 
+============================
+
+We want to make sure that coverage does not drop below a certain threshold especially when a new feature comes in
+
+check-coverage: "istanbul check-coverage --statements 100 --branches 100 --functions 100 --lines 100"
+This statement throws an error if the criteria are not met
+
+Put it also as the pre-commit hook, so that you can never commit code that doesn't meet the standards.
