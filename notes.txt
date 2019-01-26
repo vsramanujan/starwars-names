@@ -1,0 +1,36 @@
+NPM Configs
+===========
+
+> npm set init-author-name
+> npm set init-author-email
+> npm set init-author-url
+> npm set init-license
+
+Check ~/.npmrc to get details about config!
+
+Another property for saving dependency :
+-----------------------------------------
+save-exact - Tells NPM that whenever it is saving a dependency to your package.json, it would be the exact version instead of a version range.
+             This protects you for when people don't use semver properly or if there's a mistake in the release. 
+             This also makes upgrading dependencies have fewer surprises.
+
+> npm set save-exact true
+
+
+NOTE: 
+    If you don't have save-exact, in package.json, next to every dependecy listed you'd have a ^ or ~ symbol!
+
+To login to npm in command line:
+------------------------------
+> npm adduser
+After this, an authToken will be generated for you and will be in npmrc!
+
+NPM init
+========
+
+1. entry point :
+            This is what will be used when you require the package/module as in require('starwars-names-learning_test
+            We shall set it to src/index.js
+
+2. test : 
+            Leave it as blank for now because we'll add tests later            
