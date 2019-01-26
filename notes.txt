@@ -34,3 +34,49 @@ NPM init
 
 2. test : 
             Leave it as blank for now because we'll add tests later            
+
+
+To publish to NPM:
+=================
+
+>npm publish
+
+
+To get info: 
+
+> npm info <package_name>
+
+This would give you info like you have in package.json 
+
+Shortcut to package in npm:
+===========================
+
+Go to npm.im/<package_name> to go directly to the package page
+
+Releaseing a version to Github:
+===============================
+
+One important aspect is to associate the version you have on npm with the version on the Github repository.
+You accomplish this by adding a version tag to the Github repo.
+A tag in Git is something that points to a particular commit so that you can easily go back to that commit
+
+>git tag 1.0.0
+>git push --tags
+
+This will show up in the branches place inside a separate tab called Tags.
+
+To delete a tag,
+> git tag -d <tag_id>
+
+Github will also consider this tag as a release and you will be able to see it in the releases tab in the tab menu above the branch dropdown
+You could also draft a new release in that page - if the tag id is an existing tag, it just edits it (adds more info)
+
+
+Releasing a new version to NPM
+==============================
+
+1. Make the change to src
+2. Go to package.json and change the version number - but make sure you change it according to the rules of semantic versioning 
+    First - major version - when you have a major release - a breaking change
+    Second - minor release - new features - no breaking change
+    Third - patch release - a bug fix 
