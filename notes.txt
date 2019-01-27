@@ -218,3 +218,18 @@ npm i -D cz-conventional-changelog
       "path": "node_modules/cz-conventional-changelog"
 }
 Add this to package.json
+
+git-cz is the command
+
+
+ADDING BADGES TO README
+=======================
+
+Go to shields.io -> search for what you want
+
+In markdown, syntax for image is:
+![]()
+
+But we want to make the image itself to be a link, so:
+[![<desc>](<url_for_image)](<url_to_link_to)
+
