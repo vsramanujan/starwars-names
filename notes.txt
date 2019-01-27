@@ -343,3 +343,16 @@ So,
 Then go and change the pre-commit githook to npm run cover and also the travis.yml file!
 
 Finally, nyc produces a temp .nyc_output file! Add that to gitignore!
+
+
+MAKE TRAVIS BUILD ONLY CERTAIN BRANCHES
+========================================
+
+Go to .travis.yml
+
+branches:
+    only: // This is a whitelist
+        -master
+    exclude: //This is a blacklist
+
+Travis would still continue to build and check pull requests though!

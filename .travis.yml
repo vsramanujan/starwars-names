@@ -3,6 +3,9 @@ node_js:
 - stable
 - '8'
 - '6'
+branches:
+    only:
+        -master
 script:
   - npm run cover
   - npm run check-coverage
