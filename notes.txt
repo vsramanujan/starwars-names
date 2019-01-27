@@ -214,6 +214,8 @@ PROBABLY INSTALL COMMITIZEN AS WELL - FOR GOOD COMMIT MESSAGES
 npm i -D commitizen
 npm i -D cz-conventional-changelog
 
+Add inside config in package.json,
+
  "commitizen": {
       "path": "node_modules/cz-conventional-changelog"
 }
@@ -233,3 +235,111 @@ In markdown, syntax for image is:
 But we want to make the image itself to be a link, so:
 [![<desc>](<url_for_image)](<url_to_link_to)
 
+
+ADDING BABEL TRANSPILER
+========================
+
+We shall use the babel-cli to do the transpiling
+
+>npm i -D babel-cli
+
+Add a new build script that uses it in package.json
+Syntax: babel <input_dir> 
+Optional flag: --out-dir -> To explicitly specify o/p directory
+
+"build": "babel --out-dir dist src"
+
+But now we see that index.test.js is also there which we would like to ignore.
+So, we'll change the command to,
+
+babel --out-dir dist --ignore *.test.js src
+
+BUT THIS WON'T TRANSPILE ANYTHING!
+Thats because babel by deault does nothing to your code. This is where presets and transforms come into play.
+You need to explicitly specify the transforms that you want babel to apply to your code. But managing these transforms will be tedious, so babel has this bunch of transforms grouped into presets
+>npm install babel-preset-env
+
+In package.json, add separately - NOT INSIDE CONFIG
+"babel": {
+    "presets": ["env"]
+}
+
+
+Now we'd like to delete the dist file before we do a build so that no overwriting happens and it is a lot cleaner
+
+So, what we can do is in package.json,
+"prebuild": "rm -rf dist"
+
+
+So, basically adding a pre before any other task will run it before that task
+
+But the problem is rm -rf is not cross platform. It will only run in UNIX based machines like Mac!
+So you want to run this on windows as well.
+
+To do this, install a package called rimraf
+
+Then change,
+"prebuild": "rimraf dist"
+
+
+Now go and change main in package.json to import this dist/index.js so that people importing will get this!
+BUT PROBLEM, our imports in src were using relative paths like ./starwars-names.json.
+But from dist, it is not the same relative paths!
+
+To do this, we actually use a feature given in babel-cli
+
+"build": "babel --copy-files --out-dir dist --ignore *.test.js src"
+
+
+Finally, add - npm run build in travis.yml
+
+
+Now, to see how our library would be when imported, 
+
+Do an >npm pack
+Then >open starwars...
+
+You will see that there are a lot of unwanted files like .travis.yml, notes etc.
+
+So to specify the files that we actually want to be inclued, add a files property in package.json that is an array of all the files we want to be included
+"files": [
+    "dist",
+    "README.md"
+  ]
+Package.json will by default be there you don't need to mention it in files.
+
+
+One final, final thing
+
+You dont want to push dist along with src to git. So add it to gitignore. But dist will be there in the published version! 
+
+ANOTHER PROBLEM :(
+    Instanbul and mocha cannot deal with ES6!
+
+ADD ES6 support for the tests
+=============================
+NOTE: Any npm script thats run with a -- means that additional flags/arguments are being passed to it
+
+Install nyc as dev dependecy - handles es6 for code coverage a little better than istanbul
+It actually uses istanbul under the hood but handles eS6 syntax as well
+
+>npm i -D nyc
+
+Then rename istanbul to nyc and we're done about the code coverage part!
+
+Now, for the mocha part, we'll use the --compilers flag that mocha gives us
+We need to install a dependecy babel-register
+>npm i -D babel-register
+
+Change in package.json,
+"test": "nyc cover -x *.test.js _mocha -- -R spec src/index.test.js --compilers js:babel-register",
+
+THIS WONT WORK BECAUSE NYC's API is a bit diffent from mocha.
+
+So,
+"test" : mocha src/index.test.js --compilers js:babel-register,
+"cover" : nyc npm t
+
+Then go and change the pre-commit githook to npm run cover and also the travis.yml file!
+
+Finally, nyc produces a temp .nyc_output file! Add that to gitignore!
