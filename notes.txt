@@ -190,3 +190,31 @@ check-coverage: "istanbul check-coverage --statements 100 --branches 100 --funct
 This statement throws an error if the criteria are not met
 
 Put it also as the pre-commit hook, so that you can never commit code that doesn't meet the standards.
+
+
+ADD CODE COVERAGE REPORTING
+===========================
+
+Go to codecov.io
+
+You could do the import token way, but luckily Travis has an integration with codecov
+
+We install codecov.io as an npm module!
+>npm i -D codecov.io
+
+This installs a codecov binary that we can use in our npm scripts
+
+Just pipe the lcov.info into codecov after successful build and coverage test
+"report-coverage": "cat ./coverage/lcov.info | codecov
+
+So do this and add report coverage to the after_success part in Travis
+
+PROBABLY INSTALL COMMITIZEN AS WELL - FOR GOOD COMMIT MESSAGES
+---------------------------------------------------------------
+npm i -D commitizen
+npm i -D cz-conventional-changelog
+
+ "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+}
+Add this to package.json

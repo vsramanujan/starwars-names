@@ -6,3 +6,5 @@ node_js:
 script:
   - npm run test
   - npm run check-coverage
+after_success:
+  - npm run report-coverage
